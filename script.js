@@ -145,14 +145,14 @@ function renderForUser(user) {
 
   if (user === "oscar" || yuritzyAccepted) {
     // Oscar sees all 27 rules, or Yuritzy after accepting
-    yuritzySpecialSection.style.display = "none"
-    rulesGrid.style.display = "grid"
+    yuritzySpecialSection.classList.add("hidden")
+    rulesGrid.classList.remove("hidden")
     ruleCount.textContent = "27 Reglas de Amor"
     renderRules()
   } else {
     // Yuritzy before accepting - only sees golden rule + special button
-    yuritzySpecialSection.style.display = "block"
-    rulesGrid.style.display = "none"
+    yuritzySpecialSection.classList.remove("hidden")
+    rulesGrid.classList.add("hidden")
     ruleCount.textContent = "1 Regla de Amor"
   }
 }
