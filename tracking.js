@@ -30,8 +30,6 @@ const commonRules = [
 
 const goldenRule = "Amarnos por siempre"
 
-const rules = commonRules
-
 const SUPABASE_URL = "https://skrlsxhzhaplwtezpdqg.supabase.co"
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrcmxzeGh6aGFwbHd0ZXpwZHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0MTc3MjUsImV4cCI6MjA3ODk5MzcyNX0.nqlvzePycJfUFI9WMKAXWGp2Khr3228y3SF0J6_Ekd8"
@@ -54,6 +52,14 @@ const screens = {
 function init() {
   createFloatingHearts()
   setupEventListeners()
+  updateYuritzyRulesText()
+}
+
+function updateYuritzyRulesText() {
+  const yuritzyText = document.getElementById("yuritzy-rules-text")
+  if (yuritzyText) {
+    yuritzyText.textContent = yuritzyUnified ? "27 reglas" : "1 regla"
+  }
 }
 
 function createFloatingHearts() {
@@ -81,6 +87,7 @@ function setupEventListeners() {
   const viewYuritzyBtn = document.getElementById("view-yuritzy")
   const logoutBtn = document.querySelector(".logout-btn")
   const unifyBtn = document.getElementById("unify-rules-btn")
+  const unifyBtnChecking = document.getElementById("unify-rules-btn-checking")
 
   userBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -161,6 +168,10 @@ function setupEventListeners() {
   if (unifyBtn) {
     unifyBtn.addEventListener("click", handleUnifyRules)
   }
+
+  if (unifyBtnChecking) {
+    unifyBtnChecking.addEventListener("click", handleUnifyRules)
+  }
 }
 
 function handleUnifyRules() {
@@ -172,21 +183,29 @@ function handleUnifyRules() {
     yuritzyUnified = true
     localStorage.setItem("yuritzyUnified", "true")
     updateUnifyButton()
-    // Show success message
+    updateYuritzyRulesText()
     alert("¡Gracias mi amor! Ahora compartimos todas nuestras reglas juntos. 💕")
-    // Reload dashboard stats
     loadDashboardStats()
   }
 }
 
 function updateUnifyButton() {
   const unifyBtn = document.getElementById("unify-rules-btn")
+  const unifyBtnChecking = document.getElementById("unify-rules-btn-checking")
+
   if (unifyBtn) {
-    // Only show for Yuritzy when not already unified
     if (currentUser === "Yuritzy" && !yuritzyUnified) {
       unifyBtn.style.display = "flex"
     } else {
       unifyBtn.style.display = "none"
+    }
+  }
+
+  if (unifyBtnChecking) {
+    if (currentUser === "Yuritzy" && !yuritzyUnified) {
+      unifyBtnChecking.style.display = "flex"
+    } else {
+      unifyBtnChecking.style.display = "none"
     }
   }
 }
@@ -198,7 +217,6 @@ function getRulesForUser(user) {
     if (yuritzyUnified) {
       return commonRules
     } else {
-      // Only golden rule for Yuritzy before unification
       return [goldenRule]
     }
   }
@@ -208,7 +226,6 @@ function getRulesForUser(user) {
 function loadDashboardStats() {
   document.getElementById("streak-value").textContent = Math.floor(Math.random() * 10) + 1
   document.getElementById("total-checks").textContent = Math.floor(Math.random() * 50) + 10
-  document.getElementById("last-check-date").textContent = "Hoy"
 
   const rulesCountEl = document.getElementById("dashboard-rules-count")
   if (rulesCountEl) {
@@ -235,6 +252,8 @@ async function initCheckingMode() {
 
   const checklistContainer = document.getElementById("rules-checklist")
   checklistContainer.innerHTML = '<div class="loading-spinner">Cargando reglas...</div>'
+
+  updateUnifyButton()
 
   try {
     await loadExistingChecks()
@@ -277,6 +296,20 @@ function renderRulesChecklist() {
 
   const userRules = getRulesForUser(currentUser)
 
+  if (currentUser === "Yuritzy" && !yuritzyUnified) {
+    const specialMessage = document.createElement("div")
+    specialMessage.className = "special-yuritzy-message"
+    specialMessage.innerHTML = `
+      <div class="golden-rule-card">
+        <div class="golden-icon">✨</div>
+        <h3>Tu Regla de Oro</h3>
+        <p class="golden-text">${goldenRule}</p>
+        <p class="golden-subtitle">Esta es tu única regla hasta que decidas compartir todas las reglas con Oscar</p>
+      </div>
+    `
+    container.appendChild(specialMessage)
+  }
+
   userRules.forEach((rule, index) => {
     const ruleNumber = index + 1
     const status = ruleChecks.get(ruleNumber)
@@ -300,7 +333,7 @@ function renderRulesChecklist() {
                 </button>
             </div>
             <div class="rule-check-content">
-                <div class="rule-check-number">Regla ${ruleNumber}</div>
+                <div class="rule-check-number">${currentUser === "Yuritzy" && !yuritzyUnified ? "Regla de Oro" : `Regla ${ruleNumber}`}</div>
                 <div class="rule-check-text">${rule}</div>
             </div>
         `
