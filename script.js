@@ -29,7 +29,7 @@ const commonRules = [
 ]
 
 let currentUser = null
-const YURITZY_ACCEPTED_KEY = "yuritzy_accepted_all_rules"
+const YURITZY_UNIFIED_KEY = "yuritzyUnified"
 
 // DOM Elements
 const userSelection = document.getElementById("user-selection")
@@ -87,9 +87,8 @@ function setupEventListeners() {
     confirmModal.style.display = "flex"
   })
 
-  // Confirm modal buttons
   confirmYesBtn.addEventListener("click", () => {
-    localStorage.setItem(YURITZY_ACCEPTED_KEY, "true")
+    localStorage.setItem(YURITZY_UNIFIED_KEY, "true")
     confirmModal.style.display = "none"
     // Re-render with all rules now visible
     renderForUser("yuritzy")
@@ -142,7 +141,7 @@ function selectUser(user) {
 }
 
 function renderForUser(user) {
-  const yuritzyAccepted = localStorage.getItem(YURITZY_ACCEPTED_KEY) === "true"
+  const yuritzyAccepted = localStorage.getItem(YURITZY_UNIFIED_KEY) === "true"
 
   if (user === "oscar" || yuritzyAccepted) {
     // Oscar sees all 27 rules, or Yuritzy after accepting
