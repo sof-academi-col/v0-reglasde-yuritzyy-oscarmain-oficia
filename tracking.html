@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Reglas</title>
+    <link rel="stylesheet" href="tracking-styles.css">
+</head>
+<body>
+    <div id="app">
+        <div id="floating-hearts"></div>
+        <div id="sparkle-effects"></div>
+
+        <!-- User Selection Screen -->
+        <div id="user-selection" class="screen active">
+            <div class="selection-card">
+                <!-- New design for user selection -->
+                <div class="selection-header">
+                    <div class="selection-icon">💕</div>
+                    <h1 class="main-title">Control de Reglas</h1>
+                    <p class="subtitle">¿Quién eres?</p>
+                </div>
+                <div class="user-buttons">
+                    <button class="user-btn" data-user="Oscar">
+                        <div class="user-avatar-img">
+                            <img src="public/oscar.jpg" alt="Oscar">
+                        </div>
+                        <span class="user-name">Oscar</span>
+                        <span class="user-rules-count">27 reglas</span>
+                    </button>
+                    <button class="user-btn" data-user="Yuritzy">
+                        <div class="user-avatar-img">
+                            <img src="public/yuritzy.jpg" alt="Yuritzy">
+                        </div>
+                        <span class="user-name">Yuritzy</span>
+                        <span class="user-rules-count" id="yuritzy-rules-text">1 regla</span>
+                    </button>
+                </div>
+                <a href="index.html" class="back-link">← Volver a las reglas</a>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div id="mode-selection" class="screen">
+            <div class="dashboard-container">
+                <!-- New dashboard header design -->
+                <div class="dashboard-header">
+                    <div class="user-welcome">
+                        <div class="welcome-avatar">
+                            <img id="dashboard-user-img" src="/placeholder.svg" alt="User">
+                        </div>
+                        <div class="welcome-text-container">
+                            <span class="greeting">Hola, mi amor</span>
+                            <h2 id="welcome-user" class="username"></h2>
+                        </div>
+                    </div>
+                    <div class="love-badge">
+                        <span>Juntos Siempre</span>
+                        <span class="heart-pulse">❤️</span>
+                    </div>
+                </div>
+
+                <!-- New stats grid design -->
+                <div class="stats-grid">
+                    <div class="stat-card flame">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="streak-value">0</div>
+                            <div class="stat-label">Días Seguidos</div>
+                        </div>
+                    </div>
+                    <div class="stat-card star">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="total-checks">0</div>
+                            <div class="stat-label">Total Chispazos</div>
+                        </div>
+                    </div>
+                    <div class="stat-card calendar">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="dashboard-rules-count">27</div>
+                            <div class="stat-label">Reglas Activas</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New action cards design -->
+                <div class="action-cards">
+                    <button id="check-mode-btn" class="action-card primary">
+                        <div class="card-icon-wrap">
+                            <span class="card-icon">✅</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Registrar Reglas</h3>
+                            <p>Registra tu cumplimiento diario</p>
+                        </div>
+                        <div class="card-arrow">→</div>
+                    </button>
+
+                    <button id="view-mode-btn" class="action-card secondary">
+                        <div class="card-icon-wrap">
+                            <span class="card-icon">📊</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Ver Histórico</h3>
+                            <p>Revisa cómo vamos cumpliendo</p>
+                        </div>
+                        <div class="card-arrow">→</div>
+                    </button>
+                </div>
+
+                <!-- Special button for Yuritzy to unify rules -->
+                <button id="unify-rules-btn" class="unify-btn" style="display: none;">
+                    <span class="unify-icon">💝</span>
+                    <span class="unify-text">Quiero cumplir todas las reglas que los dos acordamos</span>
+                </button>
+
+                <button class="logout-btn">
+                    <span class="logout-icon">🚪</span>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Checking Screen -->
+        <div id="checking-screen" class="screen">
+            <div class="checking-container">
+                <!-- New checking header design -->
+                <div class="checking-header">
+                    <div class="header-row">
+                        <h2 id="checking-user" class="checking-title">Chequeo Diario</h2>
+                        <div class="date-display">
+                            <span id="current-date" class="date-value"></span>
+                        </div>
+                    </div>
+                    <p class="checking-subtitle">Sé honesto/a, la confianza es lo primero 💕</p>
+                </div>
+
+                <div class="progress-info">
+                    <div class="progress-text">
+                        <span id="checked-count">0</span> / <span id="total-rules">27</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div id="checking-progress" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div id="rules-checklist" class="rules-checklist">
+                    <!-- Rules will be generated by JavaScript -->
+                </div>
+
+                <div class="action-buttons">
+                    <button id="save-progress-btn" class="action-btn secondary">
+                        💾 Guardar
+                    </button>
+                    <button id="complete-session-btn" class="action-btn primary" disabled>
+                        ✨ Completar
+                    </button>
+                </div>
+
+                <button class="back-btn">← Volver</button>
+            </div>
+        </div>
+
+        <!-- Results View Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-container">
+                <div class="results-header">
+                    <h2 class="results-title">Historial de Amor</h2>
+                    <div class="date-selector">
+                        <button id="prev-date-btn" class="date-nav-btn">←</button>
+                        <span id="selected-date" class="selected-date"></span>
+                        <button id="next-date-btn" class="date-nav-btn">→</button>
+                    </div>
+                </div>
+
+                <div class="user-toggle">
+                    <button class="toggle-btn active" id="view-oscar">Oscar</button>
+                    <button class="toggle-btn" id="view-yuritzy">Yuritzy</button>
+                </div>
+                
+                <div class="target-user-display">
+                    Viendo resultados de: <span id="target-user" class="highlight-name"></span>
+                </div>
+
+                <div id="results-status" class="results-status">
+                    <!-- Status will be shown here -->
+                </div>
+
+                <div id="results-list" class="results-list">
+                    <!-- Results will be generated by JavaScript -->
+                </div>
+
+                <div class="action-buttons">
+                    <button id="download-pdf-btn" class="action-btn primary">
+                        📥 Descargar Reporte
+                    </button>
+                </div>
+
+                <button class="back-btn">← Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="tracking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const yuritzyText = document.getElementById('yuritzy-rules-text');
+            const yuritzyUnified = localStorage.getItem('yuritzyUnified') === 'true';
+            if (yuritzyText) {
+                yuritzyText.textContent = yuritzyUnified ? '27 reglas' : '1 regla';
+            }
+        });
+    </script>
+</body>
+</html>

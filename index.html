@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reglas de la Relación</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Floating Hearts Background -->
+        <div id="floating-hearts"></div>
+
+        <!-- Main Content -->
+        <div id="main-content" class="main-content">
+            <!-- New header design -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="couple-profile">
+                        <div class="profile-image">
+                            <img src="public/oscar.jpg" alt="Oscar">
+                        </div>
+                        <div class="heart-divider">
+                            <span class="heart-icon">💕</span>
+                        </div>
+                        <div class="profile-image">
+                            <img src="public/yuritzy.jpg" alt="Yuritzy">
+                        </div>
+                    </div>
+                    <div class="header-title-container">
+                        <h1 class="header-title">
+                            <span id="user-name-display">Oscar & Yuritzy</span>
+                        </h1>
+                        <div class="header-subtitle">
+                            <span id="rule-count">27 Reglas de Amor</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Rules Grid -->
+            <main class="rules-container">
+                <!-- Golden Rule -->
+                <div class="golden-rule">
+                    <div class="golden-icon">✨</div>
+                    <h3 class="golden-title">Regla de Oro</h3>
+                    <p class="golden-text">Amarnos por siempre</p>
+                    <div class="golden-hearts">
+                        <span>💕</span>
+                        <span>💖</span>
+                        <span>💝</span>
+                    </div>
+                </div>
+
+                <div id="rules-grid" class="rules-grid">
+                    <!-- Rules will be generated here -->
+                </div>
+
+                <!-- Control Link -->
+                <div class="control-section">
+                    <a href="tracking.html" class="control-btn">
+                        <span class="control-icon">📊</span>
+                        <span>Ir al Dashboard</span>
+                    </a>
+                </div>
+            </main>
+        </div>
+
+        <!-- Modal -->
+        <div id="rule-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <button id="close-modal" class="close-btn">&times;</button>
+                <div class="modal-header">
+                    <span class="modal-icon">💕</span>
+                    <h2 id="modal-title">Regla #1</h2>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-text">Texto de la regla aquí...</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-decoration">✨</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('floating-hearts');
+            const hearts = ['💕', '💖', '💝', '💗', '💓', '✨'];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = (Math.random() * 15) + 's';
+                heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                container.appendChild(heart);
+            }
+        });
+    </script>
+</body>
+</html>
