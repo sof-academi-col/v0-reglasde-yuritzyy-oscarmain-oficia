@@ -354,13 +354,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 .rules-grid {
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
-}
-
-.rules-grid:not(.hidden) {
-  display: grid;
 }
 
 .rule-card-item {
@@ -839,7 +836,7 @@ body::-webkit-scrollbar-thumb {
   opacity: 0.5;
 }
 
-/* Updated hidden class to ensure it overrides grid display */
+/* Hidden class */
 .hidden {
   display: none !important;
 }

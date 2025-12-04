@@ -29,7 +29,7 @@ const commonRules = [
 ]
 
 let currentUser = null
-const YURITZY_UNIFIED_KEY = "yuritzyUnified"
+const YURITZY_ACCEPTED_KEY = "yuritzy_accepted_all_rules"
 
 // DOM Elements
 const userSelection = document.getElementById("user-selection")
@@ -87,8 +87,9 @@ function setupEventListeners() {
     confirmModal.style.display = "flex"
   })
 
+  // Confirm modal buttons
   confirmYesBtn.addEventListener("click", () => {
-    localStorage.setItem(YURITZY_UNIFIED_KEY, "true")
+    localStorage.setItem(YURITZY_ACCEPTED_KEY, "true")
     confirmModal.style.display = "none"
     // Re-render with all rules now visible
     renderForUser("yuritzy")
@@ -141,18 +142,18 @@ function selectUser(user) {
 }
 
 function renderForUser(user) {
-  const yuritzyAccepted = localStorage.getItem(YURITZY_UNIFIED_KEY) === "true"
+  const yuritzyAccepted = localStorage.getItem(YURITZY_ACCEPTED_KEY) === "true"
 
   if (user === "oscar" || yuritzyAccepted) {
     // Oscar sees all 27 rules, or Yuritzy after accepting
-    yuritzySpecialSection.classList.add("hidden")
-    rulesGrid.classList.remove("hidden")
+    yuritzySpecialSection.style.display = "none"
+    rulesGrid.style.display = "grid"
     ruleCount.textContent = "27 Reglas de Amor"
     renderRules()
   } else {
     // Yuritzy before accepting - only sees golden rule + special button
-    yuritzySpecialSection.classList.remove("hidden")
-    rulesGrid.classList.add("hidden")
+    yuritzySpecialSection.style.display = "block"
+    rulesGrid.style.display = "none"
     ruleCount.textContent = "1 Regla de Amor"
   }
 }

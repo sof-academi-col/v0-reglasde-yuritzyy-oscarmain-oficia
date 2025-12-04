@@ -176,7 +176,7 @@ function setupEventListeners() {
 
 function handleUnifyRules() {
   const confirmed = confirm(
-    "¿Estás segura que quieres cumplir todas las reglas que los dos acordamos?\n\nEste cambio es PERMANENTE y no se puede deshacer. A partir de ahora podrás ver y registrar las 27 reglas igual que Oscar.",
+    "¿Estás segura que quieres cumplir todas las reglas que los dos acordamos?\n\nEste cambio es PERMANENTE y no se puede deshacer.",
   )
 
   if (confirmed) {
@@ -184,17 +184,7 @@ function handleUnifyRules() {
     localStorage.setItem("yuritzyUnified", "true")
     updateUnifyButton()
     updateYuritzyRulesText()
-
-    ruleChecks.clear()
-
-    // Si estamos en la pantalla de checking, actualizar la vista
-    const checkingScreen = document.getElementById("checking-screen")
-    if (checkingScreen && checkingScreen.classList.contains("active")) {
-      renderRulesChecklist()
-      updateProgress()
-    }
-
-    alert("¡Gracias mi amor! Ahora compartes todas las reglas con Oscar. 💕\n\nYa puedes registrar las 27 reglas.")
+    alert("¡Gracias mi amor! Ahora compartimos todas nuestras reglas juntos. 💕")
     loadDashboardStats()
   }
 }
@@ -312,9 +302,9 @@ function renderRulesChecklist() {
     specialMessage.innerHTML = `
       <div class="golden-rule-card">
         <div class="golden-icon">✨</div>
-        <h3>Tu Unica Regla de Oro</h3>
+        <h3>Tu Regla de Oro</h3>
         <p class="golden-text">${goldenRule}</p>
-        <p class="golden-subtitle">Registra esta regla. Si deseas cumplir todas las reglas que acordaron juntos, presiona el boton de arriba.</p>
+        <p class="golden-subtitle">Esta es tu única regla hasta que decidas compartir todas las reglas con Oscar</p>
       </div>
     `
     container.appendChild(specialMessage)
@@ -333,9 +323,6 @@ function renderRulesChecklist() {
 
     const item = document.createElement("div")
     item.className = `rule-check-item ${statusClass}`
-
-    const ruleLabel = currentUser === "Yuritzy" && !yuritzyUnified ? "Regla de Oro" : `Regla ${ruleNumber}`
-
     item.innerHTML = `
             <div class="status-buttons">
                 <button class="status-btn status-yes ${status === true ? "active" : ""}" data-rule="${ruleNumber}" data-status="true">
@@ -346,7 +333,7 @@ function renderRulesChecklist() {
                 </button>
             </div>
             <div class="rule-check-content">
-                <div class="rule-check-number">${ruleLabel}</div>
+                <div class="rule-check-number">${currentUser === "Yuritzy" && !yuritzyUnified ? "Regla de Oro" : `Regla ${ruleNumber}`}</div>
                 <div class="rule-check-text">${rule}</div>
             </div>
         `
