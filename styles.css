@@ -960,5 +960,103 @@ body::-webkit-scrollbar-thumb {
   box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
 }
 
+/* Fix confirm-yes hover state */
 .confirm-yes:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255, 20, 147, 0.5);
+}
+
+.confirm-no {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.confirm-no:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--text-muted);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-buttons {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .user-btn {
+    min-width: 100%;
+  }
+
+  .selection-content {
+    padding: 2rem;
+  }
+
+  .back-btn {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    margin-bottom: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header-content {
+    padding: 0 1rem;
+  }
+
+  .couple-profile {
+    gap: 1rem;
+  }
+
+  .profile-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .golden-rule {
+    padding: 2rem 1.5rem;
+  }
+
+  .golden-title {
+    font-size: 1.8rem;
+  }
+
+  .golden-text {
+    font-size: 1.4rem;
+  }
+
+  .yuritzy-special-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .special-message h3 {
+    font-size: 1.5rem;
+  }
+
+  .accept-all-btn {
+    padding: 1.25rem 1.5rem;
+    font-size: 1rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .rules-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .modal-content {
+    padding: 2rem;
+    margin: 1rem;
+  }
+
+  #modal-title {
+    font-size: 1.8rem;
+  }
+
+  #modal-text {
+    font-size: 1.2rem;
+  }
 }

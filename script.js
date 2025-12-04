@@ -52,15 +52,19 @@ const modalText = document.getElementById("modal-text")
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
   setupEventListeners()
-  checkExistingUser()
+  showUserSelection()
 })
 
-function checkExistingUser() {
-  // Check if there's a stored user in session
-  const storedUser = sessionStorage.getItem("currentUser")
-  if (storedUser) {
-    selectUser(storedUser)
-  }
+function showUserSelection() {
+  userSelection.style.display = "flex"
+  mainContent.style.display = "none"
+  confirmModal.style.display = "none"
+  ruleModal.style.display = "none"
+}
+
+function showMainContent() {
+  userSelection.style.display = "none"
+  mainContent.style.display = "flex"
 }
 
 function setupEventListeners() {
@@ -72,33 +76,30 @@ function setupEventListeners() {
     })
   })
 
-  // Back button
+  // Back button - return to user selection
   backBtn.addEventListener("click", () => {
-    sessionStorage.removeItem("currentUser")
     currentUser = null
-    mainContent.classList.add("hidden")
-    userSelection.classList.remove("hidden")
+    showUserSelection()
   })
 
   // Accept all rules button (Yuritzy)
   acceptAllRulesBtn.addEventListener("click", () => {
-    confirmModal.classList.remove("hidden")
+    confirmModal.style.display = "flex"
   })
 
   // Confirm modal buttons
   confirmYesBtn.addEventListener("click", () => {
-    // Save permanent acceptance
     localStorage.setItem(YURITZY_ACCEPTED_KEY, "true")
-    confirmModal.classList.add("hidden")
-    // Re-render with all rules
+    confirmModal.style.display = "none"
+    // Re-render with all rules now visible
     renderForUser("yuritzy")
   })
 
   confirmNoBtn.addEventListener("click", () => {
-    confirmModal.classList.add("hidden")
+    confirmModal.style.display = "none"
   })
 
-  // Close modal
+  // Close rule modal
   closeModalBtn.addEventListener("click", closeModal)
 
   ruleModal.addEventListener("click", (e) => {
@@ -109,17 +110,17 @@ function setupEventListeners() {
 
   confirmModal.addEventListener("click", (e) => {
     if (e.target === confirmModal) {
-      confirmModal.classList.add("hidden")
+      confirmModal.style.display = "none"
     }
   })
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      if (!ruleModal.classList.contains("hidden")) {
+      if (ruleModal.style.display !== "none") {
         closeModal()
       }
-      if (!confirmModal.classList.contains("hidden")) {
-        confirmModal.classList.add("hidden")
+      if (confirmModal.style.display !== "none") {
+        confirmModal.style.display = "none"
       }
     }
   })
@@ -127,13 +128,10 @@ function setupEventListeners() {
 
 function selectUser(user) {
   currentUser = user
-  sessionStorage.setItem("currentUser", user)
 
-  // Hide selection, show main content
-  userSelection.classList.add("hidden")
-  mainContent.classList.remove("hidden")
+  showMainContent()
 
-  // Update header
+  // Update header with user name
   if (user === "oscar") {
     userNameDisplay.textContent = "Oscar"
   } else {
@@ -147,15 +145,15 @@ function renderForUser(user) {
   const yuritzyAccepted = localStorage.getItem(YURITZY_ACCEPTED_KEY) === "true"
 
   if (user === "oscar" || yuritzyAccepted) {
-    // Oscar sees all rules, or Yuritzy after accepting
-    yuritzySpecialSection.classList.add("hidden")
-    rulesGrid.classList.remove("hidden")
+    // Oscar sees all 27 rules, or Yuritzy after accepting
+    yuritzySpecialSection.style.display = "none"
+    rulesGrid.style.display = "grid"
     ruleCount.textContent = "27 Reglas de Amor"
     renderRules()
   } else {
-    // Yuritzy before accepting - only golden rule
-    yuritzySpecialSection.classList.remove("hidden")
-    rulesGrid.classList.add("hidden")
+    // Yuritzy before accepting - only sees golden rule + special button
+    yuritzySpecialSection.style.display = "block"
+    rulesGrid.style.display = "none"
     ruleCount.textContent = "1 Regla de Amor"
   }
 }
@@ -187,11 +185,11 @@ function renderRules() {
 function openModal(rule, index) {
   modalTitle.textContent = `Regla #${index + 1}`
   modalText.textContent = rule
-  ruleModal.classList.remove("hidden")
+  ruleModal.style.display = "flex"
   document.body.style.overflow = "hidden"
 }
 
 function closeModal() {
-  ruleModal.classList.add("hidden")
+  ruleModal.style.display = "none"
   document.body.style.overflow = ""
 }

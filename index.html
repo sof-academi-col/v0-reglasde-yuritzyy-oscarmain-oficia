@@ -11,7 +11,7 @@
         <!-- Floating Hearts Background -->
         <div id="floating-hearts"></div>
 
-        <!-- Added User Selection Screen -->
+        <!-- User Selection Screen - appears first -->
         <div id="user-selection" class="user-selection">
             <div class="selection-content">
                 <h1 class="selection-title">Quien eres?</h1>
@@ -33,9 +33,9 @@
             </div>
         </div>
 
-        <!-- Main Content (hidden initially) -->
-        <div id="main-content" class="main-content hidden">
-            <!-- New header design -->
+        <!-- Main Content - hidden initially until user selects -->
+        <div id="main-content" class="main-content" style="display: none;">
+            <!-- Header -->
             <header class="header">
                 <div class="header-content">
                     <button id="back-btn" class="back-btn">
@@ -64,9 +64,9 @@
                 </div>
             </header>
 
-            <!-- Rules Grid -->
+            <!-- Rules Container -->
             <main class="rules-container">
-                <!-- Golden Rule (always visible) -->
+                <!-- Golden Rule (always visible for everyone) -->
                 <div class="golden-rule">
                     <div class="golden-icon">✨</div>
                     <h3 class="golden-title">Regla de Oro</h3>
@@ -78,8 +78,8 @@
                     </div>
                 </div>
 
-                <!-- Special button for Yuritzy -->
-                <div id="yuritzy-special-section" class="yuritzy-special-section hidden">
+                <!-- Special section for Yuritzy with the button -->
+                <div id="yuritzy-special-section" class="yuritzy-special-section" style="display: none;">
                     <div class="special-message">
                         <div class="special-icon">💝</div>
                         <h3>Mi amor, Yuritzy</h3>
@@ -92,9 +92,9 @@
                     </div>
                 </div>
 
-                <!-- Rules grid only for Oscar or when Yuritzy accepts -->
-                <div id="rules-grid" class="rules-grid">
-                    <!-- Rules will be generated here -->
+                <!-- Rules grid - only visible for Oscar or after Yuritzy accepts -->
+                <div id="rules-grid" class="rules-grid" style="display: none;">
+                    <!-- Rules will be generated here by JavaScript -->
                 </div>
 
                 <!-- Control Link -->
@@ -108,7 +108,7 @@
         </div>
 
         <!-- Confirmation Modal for Yuritzy -->
-        <div id="confirm-modal" class="modal-overlay hidden">
+        <div id="confirm-modal" class="modal-overlay" style="display: none;">
             <div class="modal-content confirm-modal-content">
                 <div class="modal-header">
                     <span class="modal-icon">💕</span>
@@ -130,7 +130,7 @@
         </div>
 
         <!-- Rule Modal -->
-        <div id="rule-modal" class="modal-overlay hidden">
+        <div id="rule-modal" class="modal-overlay" style="display: none;">
             <div class="modal-content">
                 <button id="close-modal" class="close-btn">&times;</button>
                 <div class="modal-header">
@@ -147,9 +147,9 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
     <script>
+        // Floating hearts animation
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('floating-hearts');
             const hearts = ['💕', '💖', '💝', '💗', '💓', '✨'];
