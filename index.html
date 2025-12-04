@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reglas de la Relación</title>
+    <title>Reglas de la Relacion</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,11 +11,37 @@
         <!-- Floating Hearts Background -->
         <div id="floating-hearts"></div>
 
-        <!-- Main Content -->
-        <div id="main-content" class="main-content">
+        <!-- Added User Selection Screen -->
+        <div id="user-selection" class="user-selection">
+            <div class="selection-content">
+                <h1 class="selection-title">Quien eres?</h1>
+                <p class="selection-subtitle">Selecciona tu perfil para continuar</p>
+                <div class="user-buttons">
+                    <button class="user-btn" data-user="oscar">
+                        <div class="user-avatar">
+                            <img src="public/oscar.jpg" alt="Oscar">
+                        </div>
+                        <span class="user-name">Oscar</span>
+                    </button>
+                    <button class="user-btn" data-user="yuritzy">
+                        <div class="user-avatar">
+                            <img src="public/yuritzy.jpg" alt="Yuritzy">
+                        </div>
+                        <span class="user-name">Yuritzy</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content (hidden initially) -->
+        <div id="main-content" class="main-content hidden">
             <!-- New header design -->
             <header class="header">
                 <div class="header-content">
+                    <button id="back-btn" class="back-btn">
+                        <span>←</span>
+                        <span>Cambiar Usuario</span>
+                    </button>
                     <div class="couple-profile">
                         <div class="profile-image">
                             <img src="public/oscar.jpg" alt="Oscar">
@@ -40,7 +66,7 @@
 
             <!-- Rules Grid -->
             <main class="rules-container">
-                <!-- Golden Rule -->
+                <!-- Golden Rule (always visible) -->
                 <div class="golden-rule">
                     <div class="golden-icon">✨</div>
                     <h3 class="golden-title">Regla de Oro</h3>
@@ -52,6 +78,21 @@
                     </div>
                 </div>
 
+                <!-- Special button for Yuritzy -->
+                <div id="yuritzy-special-section" class="yuritzy-special-section hidden">
+                    <div class="special-message">
+                        <div class="special-icon">💝</div>
+                        <h3>Mi amor, Yuritzy</h3>
+                        <p>Por ahora solo tienes una regla: <strong>Amarnos por siempre</strong></p>
+                        <p class="special-subtext">Pero si deseas, puedes elegir cumplir todas las reglas que acordamos juntos...</p>
+                        <button id="accept-all-rules-btn" class="accept-all-btn">
+                            <span class="btn-icon">💕</span>
+                            <span>Quiero cumplir todas las reglas que los dos acordamos</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Rules grid only for Oscar or when Yuritzy accepts -->
                 <div id="rules-grid" class="rules-grid">
                     <!-- Rules will be generated here -->
                 </div>
@@ -66,7 +107,29 @@
             </main>
         </div>
 
-        <!-- Modal -->
+        <!-- Confirmation Modal for Yuritzy -->
+        <div id="confirm-modal" class="modal-overlay hidden">
+            <div class="modal-content confirm-modal-content">
+                <div class="modal-header">
+                    <span class="modal-icon">💕</span>
+                    <h2>Estas segura?</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Al aceptar, te comprometes a cumplir todas las <strong>27 reglas</strong> que Oscar y tu acordaron juntos.</p>
+                    <p class="modal-warning">Este cambio es <strong>permanente</strong> y no se puede deshacer.</p>
+                </div>
+                <div class="modal-buttons">
+                    <button id="confirm-yes" class="confirm-btn confirm-yes">
+                        <span>Si, acepto todas las reglas</span>
+                    </button>
+                    <button id="confirm-no" class="confirm-btn confirm-no">
+                        <span>No, todavia no</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rule Modal -->
         <div id="rule-modal" class="modal-overlay hidden">
             <div class="modal-content">
                 <button id="close-modal" class="close-btn">&times;</button>
@@ -75,7 +138,7 @@
                     <h2 id="modal-title">Regla #1</h2>
                 </div>
                 <div class="modal-body">
-                    <p id="modal-text">Texto de la regla aquí...</p>
+                    <p id="modal-text">Texto de la regla aqui...</p>
                 </div>
                 <div class="modal-footer">
                     <div class="modal-decoration">✨</div>
